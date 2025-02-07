@@ -1,0 +1,35 @@
+.text-editor {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    outline: none;
+    resize: vertical;
+  }
+  
+  .text-editor:focus {
+    border-color: #5b9bd5;
+  }
+  
+  .toolbar {
+    margin-bottom: 10px;
+  }
+  
+  .toolbar button {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-right: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .toolbar button:hover {
+    background-color: #ddd;
+  }
+  
