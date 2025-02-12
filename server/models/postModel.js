@@ -6,7 +6,8 @@ const postSchema = new Schema({
     category: {type: String, enum: ["Agriculture", "Business", "Education", "Entertainment", "Art", "Investment", "Uncategorized", "Weather"], message: "{VALUE is not supported"},
     description: {type: String, required: true},
     creator: {type: Schema.Types.ObjectId, ref:"Users"},
-    title: {type: String, required: true},
+    thumbnail: {type: String, required: true},
+     
 }, {timestamps: true})
 
 
