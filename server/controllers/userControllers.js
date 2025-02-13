@@ -10,8 +10,6 @@ const HttpError = require("../models/errorModel")
 //=================REGISTER A NEW USER
 // POST : api/users/register
 // UNPROTECTED
-
-
 const registerUser = async (req, res, next) => {
     try {
         const {name, email, password, password2} = req.body;
