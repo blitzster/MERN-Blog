@@ -109,7 +109,7 @@ const changeAvatar = async (req, res, next) => {
         const user = await User.findById(req.user.id)
         //delete old avatar if it exists
         if(user.avatar){
-            fs.unlink(path.join(__dirname, '..', 'uploads', user.avatar), () => {
+            fs.unlink(path.join(__dirname, '..', 'uploads', user.avatar), (err) => {
                 if (err){
                     return next(new HttpError(err))
                 }
@@ -127,16 +127,18 @@ const changeAvatar = async (req, res, next) => {
         let splittedFilename = fileName.split('.')
         let newFilename = splittedFilename[0] + uuid() + '.' + splittedFilename[splittedFilename.length - 1]
         avatar.mv(path.join(__dirname, '..', 'uploads', newFilename), async (err) => {
-            if(err){
-                return next(new HttpError(err))
+            if (err) {
+                return next(new HttpError(err)); // Return to ensure no further response is sent
             }
-
-            const updatedAvatar = await User.findByIdAndUpdate(req.user.id, {avatar: newFilename}, {new:true})
-            if (!updatedAvatar){
-                return next(new HttpError("Avatar couldn't be changed", 422))
+        
+            const updatedAvatar = await User.findByIdAndUpdate(req.user.id, { avatar: newFilename }, { new: true });
+            if (!updatedAvatar) {
+                return next(new HttpError("Avatar couldn't be changed", 422)); // Return to ensure no further response is sent
             }
-            res.status(200).json(updatedAvatar)
-        })
+        
+            return res.status(200).json(updatedAvatar); // Ensure this is the only response sent
+        });
+        
 
 
     } catch (error) {
