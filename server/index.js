@@ -13,14 +13,21 @@ const app = express();
 app.use(express.json({extended:true}))
 app.use(express.urlencoded({extended: true}))
 // app.use(cors({credentials:true, origin:"http://localhost:3000"}))
+// CORS Configuration
 const allowedOrigins = [
-    "http://localhost:3000", // Local development
-    "https://mern-blog-delta-drab.vercel.app/" // Your Vercel frontend URL
+    process.env.FRONTEND_URL_DEV, // Local Development
+    process.env.FRONTEND_URL_PROD // Deployed Frontend (Vercel)
   ];
   
   app.use(cors({
     credentials: true,
-    origin: process.env.FRONTEND_URL
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    }
   }));
   
 app.use(upload())
