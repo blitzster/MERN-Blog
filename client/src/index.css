@@ -635,6 +635,6 @@ input, select, textarea{
 
 
 .loader__image{
-  width: 4.5rem;
+  width: 10rem;
   aspect-ratio: 1/1;
 }
