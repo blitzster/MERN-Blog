@@ -12,7 +12,17 @@ const app = express();
 
 app.use(express.json({extended:true}))
 app.use(express.urlencoded({extended: true}))
-app.use(cors({credentials:true, origin:"http://localhost:3000"}))
+// app.use(cors({credentials:true, origin:"http://localhost:3000"}))
+const allowedOrigins = [
+    "http://localhost:3000", // Local development
+    "https://mern-blog-delta-drab.vercel.app/" // Your Vercel frontend URL
+  ];
+  
+  app.use(cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL
+  }));
+  
 app.use(upload())
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
